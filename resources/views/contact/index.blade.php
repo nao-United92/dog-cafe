@@ -17,7 +17,7 @@
     </p>
     <div class="mt-8">
       <!-- ▼▼▼▼エラーメッセージ▼▼▼▼　-->
-        @if($errors->any())
+      @if($errors->any())
       <div class="mb-8 py-4 px-6 border border-pink-300 bg-pink-50 rounded">
         <ul>
             @foreach ($errors->all() as $error)
@@ -25,6 +25,7 @@
             @endforeach
         </ul>
       </div>
+      @endif
       <!-- ▲▲▲▲エラーメッセージ▲▲▲▲　-->
 
       <form action="{{ route('contact') }}" method="post">
