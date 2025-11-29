@@ -63,11 +63,11 @@
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium mb-2">登場するわんちゃん</label>
-                        <select id="js-pulldown" class="mr-6 w-full" name="" multiple>
-                            <option selected>Option 1</option>
-                            <option>Option 2</option>
-                            <option selected>Option 3</option>
-                            <option>Option 4</option>
+                        <select id="js-pulldown" class="mr-6 w-full" name="dogs[]" multiple>
+                            <option value="">選択してください</option>
+                            @foreach($dogs as $dog)
+                            <option value="{{ $dog->id }}" @if(in_array($dog->id, old('dogs', $blog->dogs->pluck('id')->all()))) selected @endif>{{ $dog->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

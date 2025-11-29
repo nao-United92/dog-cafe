@@ -15,4 +15,9 @@ class Blog extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function dogs()
+    {
+        return $this->belongsToMany(Dog::class)->withTimestamps();
+    }
 }

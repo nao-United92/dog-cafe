@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Http\Requests\Admin\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Dog;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,12 @@ class AdminBlogController extends Controller
     public function edit(Blog $blog)
     {
         $categories = Category::all();
-        return view('admin.blogs.edit', ['blog' => $blog, 'categories' => $categories]);
+        $dogs = Dog::all();
+        return view('admin.blogs.edit', [
+            'blog' => $blog,
+            'categories' => $categories,
+            'dogs' => $dogs
+        ]);
     }
 
     // 指定したIDのブログの更新処理
@@ -66,6 +72,7 @@ class AdminBlogController extends Controller
         }
         $blog->category()->associate($updateData('category_id'));
         $blog->update($updateData);
+        $blog->dogs()->sync($updateData['dogs'] ?? []);
 
         return to_route('admin.blogs.index')->with('success', 'ブログを更新しました');
     }
