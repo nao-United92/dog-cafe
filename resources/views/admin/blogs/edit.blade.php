@@ -16,7 +16,7 @@
 
                 <div class="pt-4 px-6">
                     <!-- ▼▼▼▼エラーメッセージ▼▼▼▼　-->
-                     @if($errors->any())
+                    @if($errors->any())
                     <div class="mb-8 py-4 px-6 border border-red-300 bg-red-50 rounded">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -47,11 +47,11 @@
                     <div class="mb-6">
                         <label class="block text-sm font-medium mb-2" for="category">カテゴリ</label>
                         <div class="flex">
-                            <select id="category" class="appearance-none block pl-4 pr-8 py-3 mb-2 text-sm bg-white border rounded" name="">
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                                <option>Option 4</option>
+                            <select id="category" class="appearance-none block pl-4 pr-8 py-3 mb-2 text-sm bg-white border rounded" name="category_id">
+                                <option value="">選択してください</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}" @if($category->id === old('category_id', $blog->category->id)) selected @endif>{{ $category->name }}</option>
+                                @endforeach
                             </select>
                             <div class="pointer-events-none transform -translate-x-full flex items-center px-2 text-gray-500">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20">
@@ -63,11 +63,11 @@
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium mb-2">登場するわんちゃん</label>
-                        <select id="js-pulldown" class="mr-6 w-full" name="" multiple>
-                            <option selected>Option 1</option>
-                            <option>Option 2</option>
-                            <option selected>Option 3</option>
-                            <option>Option 4</option>
+                        <select id="js-pulldown" class="mr-6 w-full" name="dogs[]" multiple>
+                            <option value="">選択してください</option>
+                            @foreach($dogs as $dog)
+                            <option value="{{ $dog->id }}" @if(in_array($dog->id, old('dogs', $blog->dogs->pluck('id')->all()))) selected @endif>{{ $dog->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
