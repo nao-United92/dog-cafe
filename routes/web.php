@@ -15,17 +15,17 @@ Route::get('/contact/complete', [ContactController::class, 'complete'])->name('c
 
 // ブログ
 Route::get('/admin/blogs', [AdminBlogController::class, 'index'])->name('admin.blogs.index')->middleware('auth');
-Route::get('/admin/blogs/create', [AdminBlogController::class, 'create'])->name('admin.blogs.create');
-Route::post('//admin/blogs/store', [AdminBlogController::class, 'store'])->name('admin.blogs.store');
+Route::get('/admin/blogs/create', [AdminBlogController::class, 'create'])->name('admin.blogs.create')->middleware('auth');
+Route::post('//admin/blogs/store', [AdminBlogController::class, 'store'])->name('admin.blogs.store')->middleware('auth');
 Route::get('/admin/blogs/{blog}', [AdminBlogController::class, 'edit'])->name('admin.blogs.edit')->middleware('auth');
-Route::put('/admin/blogs/{blog}', [AdminBlogController::class, 'update'])->name('admin.blogs.update');
-Route::delete('/admin/blogs/{blog}', [AdminBlogController::class, 'destroy'])->name('admin.blogs.destroy');
+Route::put('/admin/blogs/{blog}', [AdminBlogController::class, 'update'])->name('admin.blogs.update')->middleware('auth');
+Route::delete('/admin/blogs/{blog}', [AdminBlogController::class, 'destroy'])->name('admin.blogs.destroy')->middleware('auth');
 
 // ユーザー管理
-Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
-Route::post('/admin/users', [UserController::class, 'store'])->name('admin.users.store');
+Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create')->middleware('auth');
+Route::post('/admin/users', [UserController::class, 'store'])->name('admin.users.store')->middleware('auth');
 
 // 認証
 Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('admin.login')->middleware('guest');
 Route::post('/admin/login', [AuthController::class, 'login']);
-Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
+Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout')->middleware('auth');
